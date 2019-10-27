@@ -87,12 +87,12 @@ helm install --name cert-manager --namespace cert-manager --version v0.8.1 jetst
 ## Install Grafana
 ```
 ## Deploy the Grafana chart using the modified values file
-helm install stable/grafana -f grafana-values.yaml
+helm install stable/grafana -f grafana/grafana-values.yaml
 ```
 
 ## Ghost Blog
 ```
 ## Deploy the Ghost chart using the modified values file
-helm install stable/ghost  -f ghost-values.yaml
+helm install stable/ghost  -f ghost/ghost-values.yaml
 ```
 

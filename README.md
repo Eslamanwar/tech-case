@@ -8,6 +8,9 @@ Deploy two application to securley expose
 
 These instructions will get you a copy of the project up and running on your local machine for testing purposes. 
 
+## Design Diagram
+![alt text](https://github.com/Eslamanwar/tech-case/blob/master/design/gke.jpg?raw=true)
+  
 ### Prerequisites
 
 - you need to install kubectl on your local machine

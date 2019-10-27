@@ -1,8 +1,8 @@
 # Tech-case
 
-Deploy two application to securley expose
-/app1   Grafana Dashboard
-/app2   Ghost Blog
+Deploy two application to securley expose  
+/app1   Grafana Dashboard  
+/app2   Ghost Blog  
 
 ## Getting Started
 

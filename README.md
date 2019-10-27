@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
--you need to install kubectl on your local machine
+- you need to install kubectl on your local machine
 - you need to install GKE Cluster from Google console create k8s cluster
 - connect to k8s cluster
 ```

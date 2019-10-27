@@ -122,4 +122,4 @@ kubectl delete pod prometheus-test-prom-prometheus-opera-prometheus-0
 ## check by port-forward promethues service and go to targets
 kubectl port-forward svc/test-prom-prometheus-opera-prometheus 9090:9090
 ```
-![alt text](https://github.com/Eslamanwar/tech-case/blob/master/design/gke.jpg?raw=true)
+![alt text](https://github.com/Eslamanwar/tech-case/blob/master/design/Screenshot%20from%202019-10-28%2000-59-40.png?raw=true)

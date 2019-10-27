@@ -118,4 +118,8 @@ kubectl create -f prometheus/ghost-mariadb-exporter.yaml
 
 ## please restart prometheus pod in order the servicemonitor reload
 kubectl delete pod prometheus-test-prom-prometheus-opera-prometheus-0
+
+## check by port-forward promethues service and go to targets
+kubectl port-forward svc/test-prom-prometheus-opera-prometheus 9090:9090
 ```
+![alt text](https://github.com/Eslamanwar/tech-case/blob/master/design/gke.jpg?raw=true)

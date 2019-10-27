@@ -1,0 +1,94 @@
+
+---
+# Source: prometheus-mysql-exporter/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-mariadb-exporter
+  labels:
+    app.kubernetes.io/name: test-mariadb-exporter
+    release: release
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9104
+      targetPort: 9104
+      protocol: TCP
+      name: mysql-exporter
+  selector:
+    app: test-mariadb-exporter
+    release: release
+---
+# Source: prometheus-mysql-exporter/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-mariadb-exporter
+  labels:
+    app: test-mariadb-exporter
+    release: release
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-mariadb-exporter
+      release: release
+  template:
+    metadata:
+      labels:
+        app: test-mariadb-exporter
+        release: release
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9104"
+        prometheus.io/scrape: "true"
+        
+    spec:
+      containers:
+        - name: test-mariadb-exporter
+          image: "prom/mysqld-exporter:v0.11.0"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DATA_SOURCE_NAME
+              value: "root:uecwUxIQd7@(test-mariadb.default.svc.cluster.local:3306)/mysql"
+          ports:
+            - containerPort: 9104
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9104
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9104
+          resources:
+            {}
+            
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  generation: 1
+  labels:
+    app: prometheus-operator-mysql-exporter
+    chart: prometheus-operator-6.7.1
+    heritage: Tiller
+    release: test-prom
+  name: test-mariadb-exporter
+  selfLink: /apis/monitoring.coreos.com/v1/namespaces/default/servicemonitors/test-mariadb-exporter
+spec:
+  endpoints:
+  - interval: 30s
+    port: mysql-exporter
+    scrapeTimeout: 10s
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    tlsConfig:
+      insecureSkipVerify: true
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: test-mariadb-exporter
+      release: release
+

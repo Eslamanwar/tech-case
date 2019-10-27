@@ -90,12 +90,32 @@ helm install --name cert-manager --namespace cert-manager --version v0.8.1 jetst
 ## Install Grafana
 ```
 ## Deploy the Grafana chart using the modified values file
-helm install stable/grafana -f grafana/grafana-values.yaml
+helm install --name test-grafana  stable/grafana -f grafana/grafana-values.yaml
 ```
 
 ## Ghost Blog
 ```
 ## Deploy the Ghost chart using the modified values file
-helm install stable/ghost  -f ghost/ghost-values.yaml
+helm install --name test stable/ghost  -f ghost/ghost-values.yaml
 ```
 
+
+
+## install prometheus
+```
+helm install --name test-prom  stable/prometheus-operator -f prometheus/prom-values.yaml
+```
+
+
+## Monitor Mariadb 
+```
+## please update the mariadb root password in prometheus/ghost-mariadb-exporter.yaml 
+## kubectl get secret --namespace default test-mariadb -o jsonpath="{.data.mariadb-root-password}" | base64 --decode
+
+## apply mariadb exporter deployment/service/servicemonitor 
+kubectl create -f prometheus/ghost-mariadb-exporter.yaml
+
+
+## please restart prometheus pod in order the servicemonitor reload
+kubectl delete pod prometheus-test-prom-prometheus-opera-prometheus-0
+```

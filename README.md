@@ -107,7 +107,7 @@ helm install --name test-prom  stable/prometheus-operator -f prometheus/prom-val
 ```
 
 
-## Monitor Mariadb 
+## Scrape Mariadb Metrics
 ```
 ## please update the mariadb root password in prometheus/ghost-mariadb-exporter.yaml 
 ## kubectl get secret --namespace default test-mariadb -o jsonpath="{.data.mariadb-root-password}" | base64 --decode
